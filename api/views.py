@@ -86,13 +86,7 @@ def value(request):
     #   url=fs.url(name)
     #   return HttpResponse(url)
 #    return HttpResponse("blank")
-import librosa
 
-def saveFig(request):
-    data,sr=librosa.load("media/documents/2022-112218.wav")
-    
-    return HttpResponse(sr)
-    
 
 
 
