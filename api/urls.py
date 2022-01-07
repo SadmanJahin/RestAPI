@@ -8,6 +8,6 @@ urlpatterns = [
     path('task-create/', views.taskCreate,name="task-list"),
     path('upload/', views.upload,name="upload"),
     path('value/', views.value,name="upload"),
-    path('saveFig/', views.saveFig,name="save"),
+
     
 ]
