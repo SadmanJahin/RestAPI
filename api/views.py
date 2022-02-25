@@ -73,11 +73,18 @@ def upload(request):
 
 	return Response(serializer.data)
 
-def value(request):
-    with open('model_pickle','rb') as file:
-        mp = pickle.load(file)
-        x=mp.predict([[5000]])
-    return HttpResponse(x)
+@api_view(['POST'])
+def analyseHeartbeat(request):
+    
+    serializer = FileSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        
+    name="media/documents/"+request.POST['title']
+    data,sr=librosa.load(name)
+    mfccs = librosa.feature.mfcc(y=data, sr=sr)
+    mfccs_scaled_feature=np.mean(mfccs.T,axis=0)
+    return HttpResponse(sr)
 #def upload(request):
  #   if request.method=='POST':
 #       title=request.POST['title']
