@@ -88,7 +88,7 @@ def analyseHeartbeat(request):
     import pickle
     loaded_model = pickle.load(open("SVM.sav", 'rb'))
     loaded_scaler= pickle.load(open("scale.pkl", 'rb'))
-    data,sample_rate=librosa.load("predict.wav")
+    data,sample_rate=librosa.load("heartbeat filter.wav")
     mfccs = np.mean(librosa.feature.mfcc(y=data, sr=sample_rate, n_mfcc=40).T,axis=0)
     mfccs = loaded_scaler.transform([mfccs])
     predict = loaded_model.predict(mfccs)
