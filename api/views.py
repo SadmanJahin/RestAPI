@@ -10,6 +10,7 @@ from .models import File
 from django.core.files.storage import  FileSystemStorage
 import pickle
 import librosa
+import numpy as np
 # Create your views here.
 @api_view(['GET'])
 def apiOverview(request):
@@ -90,9 +91,8 @@ def analyseHeartbeat(request):
     #loaded_scaler= pickle.load(open("scale.pkl", 'rb'))
     data,sample_rate=librosa.load("heartbeat filter.wav")
     mfccs = np.mean(librosa.feature.mfcc(y=data, sr=sample_rate, n_mfcc=40).T,axis=0)
-    mfccs = loaded_scaler.transform([mfccs])
+    #mfccs = loaded_scaler.transform([mfccs])
     #predict = loaded_model.predict(mfccs)
-    
     
     return HttpResponse(sample_rate)
 #def upload(request):
