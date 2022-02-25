@@ -7,7 +7,7 @@ urlpatterns = [
     path('task-list/', views.taskList,name="task-list"),
     path('task-create/', views.taskCreate,name="task-list"),
     path('upload/', views.upload,name="upload"),
-     path('analyseHeartbeat/', views.analyseHeartbeat,name="analyseHeartbeat"),
+    path('analyseHeartbeat/', views.analyseHeartbeat,name="analyseHeartbeat"),
 
     
 ]
