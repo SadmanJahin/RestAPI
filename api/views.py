@@ -73,7 +73,7 @@ def upload(request):
 
 	return Response(serializer.data)
 
-@api_view(['POST'])
+#@api_view(['POST'])
 @api_view(['GET'])
 def analyseHeartbeat(request):
     
