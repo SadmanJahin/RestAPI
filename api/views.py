@@ -86,15 +86,15 @@ def analyseHeartbeat(request):
     #mfccs = librosa.feature.mfcc(y=data, sr=sr)
     #mfccs_scaled_feature=np.mean(mfccs.T,axis=0)
     import pickle
-    loaded_model = pickle.load(open("SVM.sav", 'rb'))
-    loaded_scaler= pickle.load(open("scale.pkl", 'rb'))
+    #loaded_model = pickle.load(open("SVM.sav", 'rb'))
+    #loaded_scaler= pickle.load(open("scale.pkl", 'rb'))
     data,sample_rate=librosa.load("heartbeat filter.wav")
     mfccs = np.mean(librosa.feature.mfcc(y=data, sr=sample_rate, n_mfcc=40).T,axis=0)
     mfccs = loaded_scaler.transform([mfccs])
-    predict = loaded_model.predict(mfccs)
+    #predict = loaded_model.predict(mfccs)
     
     
-    return HttpResponse(predict)
+    return HttpResponse(sample_rate)
 #def upload(request):
  #   if request.method=='POST':
 #       title=request.POST['title']
