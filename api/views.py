@@ -89,7 +89,7 @@ def analyseHeartbeat(request):
     #mfccs = librosa.feature.mfcc(y=data, sr=sr)
     #mfccs_scaled_feature=np.mean(mfccs.T,axis=0)
     
-    scaler1= pickle.load(open("models/scaler(physionet).pkl", 'rb'))
+    scaler1= pickle.load(open("scale.pkl", 'rb'))
     model1 = pickle.load(open("SVM.sav", 'rb'))
     data,sample_rate=librosa.load("heartbeat filter.wav")
     mfccs = np.mean(librosa.feature.mfcc(y=data, sr=sample_rate, n_mfcc=40).T,axis=0)
