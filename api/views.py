@@ -11,7 +11,7 @@ from django.core.files.storage import  FileSystemStorage
 import pickle
 import librosa
 import numpy as np
-import tensorflow as tf
+
 
 # Create your views here.
 @api_view(['GET'])
