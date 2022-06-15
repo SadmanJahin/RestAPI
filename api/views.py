@@ -11,16 +11,18 @@ from django.core.files.storage import  FileSystemStorage
 import pickle
 import librosa
 import numpy as np
+import tensorflow as tf
+
 # Create your views here.
 @api_view(['GET'])
 def apiOverview(request):
     api_urls= {
-        'List':'/task-list',
-        'Detail View':'/task-detail/<str:pk>/',
-        'Create':'/task-create',
-        'Update':'/task-update',
+        'List':'/audio-list',
+        'Detail View':'/audio-detail/<str:pk>/',
+        'Create':'/paitent-create',
+        'Update':'/patient-update',
         'Delete':'/task-delete',
-        
+        'Get Heart Result':'/analyseHeartbeat',
     }
     return Response(api_urls)
 
@@ -86,15 +88,16 @@ def analyseHeartbeat(request):
     #data,sr=librosa.load(name)
     #mfccs = librosa.feature.mfcc(y=data, sr=sr)
     #mfccs_scaled_feature=np.mean(mfccs.T,axis=0)
-    import pickle
-    loaded_model = pickle.load(open("SVM.sav", 'rb'))
-    loaded_scaler= pickle.load(open("scale.pkl", 'rb'))
+    
+    scaler1= pickle.load(open("models/scaler(physionet).pkl", 'rb'))
+    model1 = tf.keras.models.load_model("models/ann_model_93%(physionet).h5")
     data,sample_rate=librosa.load("heartbeat filter.wav")
     mfccs = np.mean(librosa.feature.mfcc(y=data, sr=sample_rate, n_mfcc=40).T,axis=0)
-    mfccs = loaded_scaler.transform([mfccs])
-    predict = loaded_model.predict(mfccs)
+    scaled_x1=scaler1.transform([mfccs])
+    y_pred1 = model1.predict(scaled_x1)
+    y_pred1=np.argmax(y_pred1)
     
-    return HttpResponse(predict)
+    return HttpResponse(y_pred1)
 #def upload(request):
  #   if request.method=='POST':
 #       title=request.POST['title']
