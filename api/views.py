@@ -90,12 +90,12 @@ def analyseHeartbeat(request):
     #mfccs_scaled_feature=np.mean(mfccs.T,axis=0)
     
     scaler1= pickle.load(open("models/scaler(physionet).pkl", 'rb'))
-    model1 = tf.keras.models.load_model("models/ann_model_93%(physionet).h5")
+    model1 = pickle.load(open("SVM.sav", 'rb'))
     data,sample_rate=librosa.load("heartbeat filter.wav")
     mfccs = np.mean(librosa.feature.mfcc(y=data, sr=sample_rate, n_mfcc=40).T,axis=0)
     scaled_x1=scaler1.transform([mfccs])
     y_pred1 = model1.predict(scaled_x1)
-    y_pred1=np.argmax(y_pred1)
+   
     
     return HttpResponse(y_pred1)
 #def upload(request):
