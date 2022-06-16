@@ -85,19 +85,28 @@ def analyseHeartbeat(request):
         serializer.save()
         
     name="media/documents/"+request.POST['title']
-    #data,sr=librosa.load(name)
-    #mfccs = librosa.feature.mfcc(y=data, sr=sr)
-    #mfccs_scaled_feature=np.mean(mfccs.T,axis=0)
-    
-    scaler1= pickle.load(open("scale.pkl", 'rb'))
-    model1 = pickle.load(open("SVM.sav", 'rb'))
     data,sample_rate=librosa.load(name)
     mfccs = np.mean(librosa.feature.mfcc(y=data, sr=sample_rate, n_mfcc=40).T,axis=0)
+
+    scaler1= pickle.load(open("models/scaler(physionet).pkl", 'rb'))
+    model1 = pickle.load(open("models/SVM(physionet).sav", 'rb'))
+    model2 = pickle.load(open("models/RandomForest(Pascal).sav", 'rb'))
+    model3 = pickle.load(open("models/KNN(Medical).sav", 'rb'))
     scaled_x1=scaler1.transform([mfccs])
-    y_pred1 = model1.predict(scaled_x1)
-   
+    y_pred1 = model1.predict(scaled_x1)[0]
+    if(y_pred1==-1):
+        y_pred1="normal"
+    else :
+        y_pred1="abnormal"
+     
+    y_pred2 = str(model2.predict([mfccs])[0]).lower()
+    y_pred3 = str(model3.predict([mfccs])[0]).lower()
     
-    return HttpResponse(y_pred1)
+    mode=Counter([y_pred1,y_pred2,y_pred3])
+    
+    hybrid_prediction=mode.most_common(1)[0][0]
+    
+    return HttpResponse(hybrid_prediction)
 #def upload(request):
  #   if request.method=='POST':
 #       title=request.POST['title']
