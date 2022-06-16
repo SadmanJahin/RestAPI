@@ -82,7 +82,7 @@ def analyseHeartbeat(request):
     
     serializer = FileSerializer(data=request.data)
     if serializer.is_valid():
-        #serializer.save()
+        serializer.save()
         
     name="media/documents/"+request.POST['title']
     #data,sr=librosa.load(name)
