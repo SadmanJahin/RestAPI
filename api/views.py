@@ -8,9 +8,10 @@ from .serializers import FileSerializer
 from .models import Task
 from .models import File
 from django.core.files.storage import  FileSystemStorage
-import pickle
 import librosa
 import numpy as np
+import pickle
+from collections import Counter
 
 
 # Create your views here.
@@ -76,22 +77,21 @@ def upload(request):
 
 	return Response(serializer.data)
 
-#@api_view(['POST'])
-@api_view(['GET'])
+@api_view(['POST'])
 def analyseHeartbeat(request):
     
-    #serializer = FileSerializer(data=request.data)
-    #if serializer.is_valid():
+    serializer = FileSerializer(data=request.data)
+    if serializer.is_valid():
         #serializer.save()
         
-    #name="media/documents/"+request.POST['title']
+    name="media/documents/"+request.POST['title']
     #data,sr=librosa.load(name)
     #mfccs = librosa.feature.mfcc(y=data, sr=sr)
     #mfccs_scaled_feature=np.mean(mfccs.T,axis=0)
     
     scaler1= pickle.load(open("scale.pkl", 'rb'))
     model1 = pickle.load(open("SVM.sav", 'rb'))
-    data,sample_rate=librosa.load("heartbeat filter.wav")
+    data,sample_rate=librosa.load(name)
     mfccs = np.mean(librosa.feature.mfcc(y=data, sr=sample_rate, n_mfcc=40).T,axis=0)
     scaled_x1=scaler1.transform([mfccs])
     y_pred1 = model1.predict(scaled_x1)
