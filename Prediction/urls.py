@@ -19,9 +19,10 @@ from django.urls import include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import include, re_path
-
+from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', views.overview,name="overview"),
     path('api/', include('api.urls')),
     path('api-auth/', include('rest_framework.urls')),
     
