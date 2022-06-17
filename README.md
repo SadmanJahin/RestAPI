@@ -4,3 +4,13 @@ Backend Server provides Hybrid Prediction of Heart Sounds. Machine Learning Mode
 predictions trained from various datasets. 
 <br>
 Deployed on Heroku : https://heartbeat-classification-rest.herokuapp.com/
+
+
+## API Request
+
+
+For Heartbeat classification
+***Post***
+```
+https://heartbeat-classification-rest.herokuapp.com/analyseHeartbeat/
+```
