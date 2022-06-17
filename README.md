@@ -10,7 +10,8 @@ Deployed on Heroku : https://heartbeat-classification-rest.herokuapp.com/
 
 
 For Heartbeat classification
-***Post***
+<br>
+**Post**
 ```
 https://heartbeat-classification-rest.herokuapp.com/analyseHeartbeat/
 ```
