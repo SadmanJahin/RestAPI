@@ -9,9 +9,10 @@ Deployed on Heroku : https://heartbeat-classification-rest.herokuapp.com/
 ## API Request
 
 
-For Heartbeat classification
+**For Heartbeat classification**
 <br>
-**Post**
+<br>
+Post
 ```
 https://heartbeat-classification-rest.herokuapp.com/analyseHeartbeat/
 ```
