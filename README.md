@@ -9,7 +9,7 @@ Deployed on Heroku : https://heartbeat-classification-rest.herokuapp.com/
 ## API Request
 
 
-**For Heartbeat classification**
+**For Heartbeat Classification**
 <br>
 <br>
 Post
