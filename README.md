@@ -14,5 +14,5 @@ Deployed on Heroku : https://heartbeat-classification-rest.herokuapp.com/
 <br>
 Post
 ```
-https://heartbeat-classification-rest.herokuapp.com/analyseHeartbeat/
+https://heartbeat-classification-rest.herokuapp.com/api/analyseHeartbeat/
 ```
