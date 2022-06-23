@@ -126,6 +126,7 @@ def upload(request):
         
     location="media/"+name    
     data,sample_rate=librosa.load(location)
+    mfccs = np.mean(librosa.feature.mfcc(y=data, sr=sample_rate, n_mfcc=40).T,axis=0)	
     #mfccs = librosa.feature.mfcc(y=data, sr=sr)
     #mfccs_scaled_feature=np.mean(mfccs.T,axis=0)
     
