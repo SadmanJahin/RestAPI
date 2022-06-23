@@ -88,20 +88,17 @@ def analyseHeartbeat(request):
     data,sample_rate=librosa.load(name)
     mfccs = np.mean(librosa.feature.mfcc(y=data, sr=sample_rate, n_mfcc=40).T,axis=0)
 
-    scaler1= pickle.load(open("models/scaler(physionet).pkl", 'rb'))
-    model1 = pickle.load(open("models/SVM(physionet).sav", 'rb'))
+    model1 = pickle.load(open("models/RandomForest(Physionet)Downsample.sav", 'rb'))
     model2 = pickle.load(open("models/RandomForest(Pascal).sav", 'rb'))
     model3 = pickle.load(open("models/KNN(Medical).sav", 'rb'))
-    scaled_x1=scaler1.transform([mfccs])
-    y_pred1 = model1.predict(scaled_x1)[0]
-    if(y_pred1==-1):
-        y_pred1="normal"
-    else :
-        y_pred1="abnormal"
-     
+    
+    
+   
+   
+    y_pred1 =str(model1.predict([mfccs])[0]).lower() 
     y_pred2 = str(model2.predict([mfccs])[0]).lower()
     y_pred3 = str(model3.predict([mfccs])[0]).lower()
-    
+
     mode=Counter([y_pred1,y_pred2,y_pred3])
     
     hybrid_prediction=mode.most_common(1)[0][0]
@@ -131,13 +128,13 @@ def upload(request):
     data,sample_rate=librosa.load(location)
     #mfccs = librosa.feature.mfcc(y=data, sr=sr)
     #mfccs_scaled_feature=np.mean(mfccs.T,axis=0)
-    scaler1= pickle.load(open("models/scaler(physionet).pkl", 'rb'))
+    
     model1 = pickle.load(open("models/RandomForest(Physionet)Downsample.sav", 'rb'))
     model2 = pickle.load(open("models/RandomForest(Pascal).sav", 'rb'))
     model3 = pickle.load(open("models/KNN(Medical).sav", 'rb'))
     
     
-    #data,sample_rate=librosa.load(serializer)
+   
    
     y_pred1 =str(model1.predict([mfccs])[0]).lower() 
     y_pred2 = str(model2.predict([mfccs])[0]).lower()
