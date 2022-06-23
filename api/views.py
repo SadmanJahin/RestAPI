@@ -139,7 +139,7 @@ def upload(request):
     
     #data,sample_rate=librosa.load(serializer)
    
-    y_pred1 = model1.predict([mfccs])[0].lower() 
+    y_pred1 =str(model1.predict([mfccs])[0]).lower() 
     y_pred2 = str(model2.predict([mfccs])[0]).lower()
     y_pred3 = str(model3.predict([mfccs])[0]).lower()
     
